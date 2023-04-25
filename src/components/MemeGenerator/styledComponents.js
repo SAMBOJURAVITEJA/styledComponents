@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-export const bgContainer = styled.div`
+export const BgContainer = styled.div`
   background-color: #ffffff;
   font-weight: bold;
   display: flex;
@@ -9,27 +9,33 @@ export const bgContainer = styled.div`
   justify-content: space-around;
 `
 
-export const formElement = styled.form`
+export const FormElement = styled.form`
   margin-bottom: 20px;
 `
 
-export const formContainer = styled.div`
+export const FormContainer = styled.div`
   background-color: #ffffff;
 `
 
-export const customButton = styled.button`
+export const CustomButton = styled.button`
   background-color: #0b69ff;
   font-weight: bold;
   color: #ffffff;
   border-radius: 8px;
-  cursor: pointer;
+  padding: 5px;
   border: none;
+  outline: none;
+  cursor: pointer;
 `
 
-export const imageContainer = styled.div`
+export const ImageContainer = styled.div`
   background-image: url(${props => props.src});
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
-export const topBottomText = styled.h1`
+export const TopBottomText = styled.h1`
   font-size: ${props => props.fontSize};
 `
+
