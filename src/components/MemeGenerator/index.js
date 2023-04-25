@@ -1,12 +1,12 @@
 import {Component} from 'react'
 
 import {
-  bgContainer,
-  formContainer,
-  formElement,
-  customButton,
-  topBottomText,
-  imageContainer,
+  BgContainer,
+  FormContainer,
+  FormElement,
+  CustomButton,
+  TopBottomText,
+  ImageContainer,
 } from './styledComponents'
 
 const fontSizesOptionsList = [
@@ -41,68 +41,92 @@ const fontSizesOptionsList = [
 ]
 
 class MemeGenerator extends Component {
-  state = {topText: '', bottomText: '', imageUrl: '', fontSize: ''}
+  state = {
+    topTextInput: '',
+    bottomTextInput: '',
+    imageUrlInput: '',
+    fontSizeInput: '',
+    topText: '',
+    bottomText: '',
+    imageUrl: '',
+    fontSize: fontSizesOptionsList[0].displayText,
+  }
 
   fontSize = event => {
-    this.setState({fontSize: event.target.value})
+    this.setState({fontSizeInput: event.target.value})
   }
 
   topText = event => {
-    this.setState({topText: event.target.value})
+    this.setState({topTextInput: event.target.value})
   }
 
   bottomText = event => {
-    this.setState({bottomText: event.target.value})
+    this.setState({bottomTextInput: event.target.value})
   }
 
   image = event => {
-    this.setState({imageUrl: event.target.value})
+    this.setState({imageUrlInput: event.target.value})
   }
 
-  Submitting = event => {
+  submitting = event => {
     event.preventDefault()
+    console.log('submitting')
+
+    const {
+      imageUrlInput,
+      topTextInput,
+      bottomTextInput,
+      fontSizeInput,
+    } = this.state
+
+    this.setState({
+      fontSize: fontSizeInput,
+      imageUrl: imageUrlInput,
+      bottomText: bottomTextInput,
+      topText: topTextInput,
+    })
   }
 
   render() {
     const {topText, bottomText, fontSize, imageUrl} = this.state
     return (
-      <bgContainer data-testid="meme">
-        <formContainer>
-          <formElement>
+      <BgContainer data-testid="meme">
+        <FormContainer>
+          <FormElement>
             <label htmlFor="image">Image URL</label>
             <br />
             <input type="text" id="image" onChange={this.image} />
-          </formElement>
-          <formElement>
+          </FormElement>
+          <FormElement>
             <label htmlFor="Top Text">Top Text</label>
             <br />
             <input type="text" id="Top Text" onChange={this.topText} />
-          </formElement>
-          <formElement>
+          </FormElement>
+          <FormElement>
             <label htmlFor="Bottom Text">Bottom Text</label>
             <br />
             <input type="text" id="Bottom Text" onChange={this.bottomText} />
-          </formElement>
-          <formElement>
+          </FormElement>
+          <FormElement>
             <label htmlFor="Font Size">Font Size</label>
             <br />
             <select id="Font Size" onChange={this.fontSize}>
               {fontSizesOptionsList.map(event => (
-                <option id={event.optionId}>{event.displayText}</option>
+                <option value={event.displayText} key={event.optionId}>
+                  {event.displayText}
+                </option>
               ))}
             </select>
-          </formElement>
-          <formElement>
-            <customButton type="button" onSubmit={this.submitting}>
-              Generator
-            </customButton>
-          </formElement>
-        </formContainer>
-        <imageContainer src={imageUrl}>
-          <topBottomText fontSize={fontSize}>{topText}</topBottomText>
-          <topBottomText fontSize={fontSize}>{bottomText}</topBottomText>
-        </imageContainer>
-      </bgContainer>
+          </FormElement>
+          <CustomButton type="submit" onSubmit={this.submitting}>
+            Generator
+          </CustomButton>
+        </FormContainer>
+        <ImageContainer src={imageUrl}>
+          <TopBottomText fontSize={fontSize}>{topText}</TopBottomText>
+          <TopBottomText fontSize={fontSize}>{bottomText}</TopBottomText>
+        </ImageContainer>
+      </BgContainer>
     )
   }
 }
